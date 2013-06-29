@@ -56,7 +56,7 @@ server = httpProxy.createServer(function (req, res, proxy) {
 
 console.log('\n==================================\nProxy On: ' + proxyPort.green.bold + '\nForwarded To: ' + intendedUrl.host.blue.bold + "\nPublic Directory: " + publicDir + "\n==================================");
 
-server.proxy.on("end", function(req, res) {
+server.proxy.on("end", function(req, res, response) {
 
 	var currentPath = url.parse(req.url);
 
@@ -75,7 +75,7 @@ server.proxy.on("end", function(req, res) {
 			console.log("== ".cyan + key.blue + " : ".blue + value.blue);
 		});
 		//FIXME : Need to implement body logging
-		console.log("== ".cyan + "BODY: ".blue + (res.chunkedBody || "None").blue)
+		console.log("== ".cyan + "BODY: ".blue + (res.chunkedBody || "None").toString().blue)
 
 		console.log("====================================================".cyan);
 		console.log("== End ".cyan + req.method.cyan + " ".cyan + currentPath.path.cyan);

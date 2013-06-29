@@ -25,7 +25,7 @@ All requests and responses are output to the console for debugging. For example:
 == referer : http://localhost:1337/index.html
 == accept-encoding : gzip,deflate,sdch
 == accept-language : en-US,en;q=0.8
-== cookie : mp_f70f3058090ab378730fa2ae177ad0f7_mixpanel=%7B%22distinct_id%22%3A%20%228%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%7D
+== cookie : removed (to keep it short)
 == x-forwarded-for : 127.0.0.1
 == x-forwarded-port : 59555
 == x-forwarded-proto : http
