@@ -27,16 +27,17 @@ server = httpProxy.createServer(function (req, res, proxy) {
 
 	fs.exists(fileName, function(exists) {
 		if (!exists) {
+			//file not found, redirect to proxy
 			proxy.proxyRequest(req, res, {
 				host: intendedUrl.hostname,
 				port: intendedUrl.port
 			});
 
 		} else {
-			console.log("Serving File Directly: " + fileName);
-			//file DOES exist int he public dir
+			//file exists, just serve it
 			var mimeType = mimeTypes[path.extname(fileName).split(".")[1]];
-			res.writeHead(200, mimeType);
+			console.log("Serving File Directly: " + currentPath.pathname + " - " + mimeType);
+			res.writeHead(200, {'Content-Type' : mimeType});
 			var fileStream = fs.createReadStream(fileName);
 			fileStream.pipe(res);
 		}
