@@ -2,13 +2,14 @@
   "name": "passthrough",
   "version": "0.0.0",
   "description": "Pass through api server with info output",
-  "main": "server.js",
+  "main": "passthrough.js",
   "scripts": {
     "test": "test"
   },
   "dependencies" : {
-    "colorize" : ">0",
-    "underscore" : ">=1.4.4"
+    "colors" : ">0",
+    "underscore" : ">=1.4.4",
+    "http-proxy" : "0.10.x"
   },
   "repository": "http://github.com/mazondo/passthrough.git",
   "author": "Ryan Quinn"
