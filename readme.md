@@ -12,35 +12,37 @@ All requests and responses are output to the console for debugging. For example:
 
 ```
 ====================================================
-== Request: /friends -> http://localhost:8080/friends
+== POST /users -> http://localhost:8080/users
 ====================================================
 == host : localhost:1337
 == connection : keep-alive
-== cache-control : max-age=0
+== content-length : 54
 == accept : application/json, text/javascript, */*; q=0.01
-== user-agent : Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36
+== origin : http://localhost:1337
 == x-requested-with : XMLHttpRequest
+== user-agent : Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36
+== content-type : application/json
 == referer : http://localhost:1337/index.html
 == accept-encoding : gzip,deflate,sdch
 == accept-language : en-US,en;q=0.8
-== cookie : cookie data (removed to keep it short)
+== cookie : mp_f70f3058090ab378730fa2ae177ad0f7_mixpanel=%7B%22distinct_id%22%3A%20%228%22%2C%22%24initial_referrer%22%3A%20%22%24direct%22%2C%22%24initial_referring_domain%22%3A%20%22%24direct%22%7D
 == x-forwarded-for : 127.0.0.1
-== x-forwarded-port : 58099
+== x-forwarded-port : 59555
 == x-forwarded-proto : http
+== =============
+== BODY: {"email":"me@me.com","password":"password"}
 == ==============
 == Response
 == ==============
-== Status: 401
-== date : Sat, 29 Jun 2013 03:07:59 GMT
-== www-authenticate : Bearer realm="user-resources"
-== content-type : text/plain
+== Status: 200
+== date : Sat, 29 Jun 2013 05:01:29 GMT
+== content-type : application/json
+== content-encoding : gzip
+== vary : Accept-Encoding, User-Agent
 == transfer-encoding : chunked
 == connection : keep-alive
-== ==============
-== Body
-== ==============
-== FIXME : Need to implement body logging
+== BODY: None
 ====================================================
-== End Request: /friends
+== End POST /users
 ====================================================
 ```

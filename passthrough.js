@@ -27,16 +27,25 @@ server = httpProxy.createServer(function (req, res, proxy) {
 
 	fs.exists(fileName, function(exists) {
 		if (!exists) {
+			req.chunkedBody = "";
+
+			req.buffer = httpProxy.buffer(req);
+
+			req.on("data", function(chunk) {
+				req.chunkedBody += chunk;
+			});
+
 			//file not found, redirect to proxy
 			proxy.proxyRequest(req, res, {
 				host: intendedUrl.hostname,
-				port: intendedUrl.port
+				port: intendedUrl.port,
+				buffer: req.buffer
 			});
 
 		} else {
 			//file exists, just serve it
 			var mimeType = mimeTypes[path.extname(fileName).split(".")[1]];
-			console.log("Serving File Directly: " + currentPath.pathname + " - " + mimeType);
+			console.log("Static File: ".grey + currentPath.pathname.grey + " - ".grey + mimeType.grey);
 			res.writeHead(200, {'Content-Type' : mimeType});
 			var fileStream = fs.createReadStream(fileName);
 			fileStream.pipe(res);
@@ -53,22 +62,23 @@ server.proxy.on("end", function(req, res) {
 
 	if (!currentPath.pathname.match(/ico|png|jpg$/i)) {
 		console.log("\n====================================================".cyan);
-		console.log("== Request: ".cyan + currentPath.path.cyan + " -> ".cyan + intendedUrl.href.replace(/\/$/, "").cyan + currentPath.path.cyan);
+		console.log("== ".cyan + req.method.cyan + " ".cyan + currentPath.path.cyan + " -> ".cyan + intendedUrl.href.replace(/\/$/, "").cyan + currentPath.path.cyan);
 		console.log("====================================================".cyan);
 		_.each(req.headers, function(value, key) {
 			console.log("== ".cyan + key.toString().green + " : ".green + value.toString().green);
 		});
+		console.log("== ".cyan + "=============".green);
+		console.log("== ".cyan + "BODY: ".green + (req.chunkedBody || "None").green);
 		console.log("== ".cyan + "==============\n".blue + "== ".cyan + "Response\n".blue + "== ".cyan + "==============".blue);
 		console.log("== ".cyan + "Status: ".blue + res.statusCode.toString().blue);
 		_.each(res._headers, function(value, key) {
 			console.log("== ".cyan + key.blue + " : ".blue + value.blue);
 		});
-		console.log("== ".cyan + "==============\n".blue + "== ".cyan + "Body\n".blue + "== ".cyan + "==============".blue);
 		//FIXME : Need to implement body logging
-		console.log("== ".cyan + "FIXME : Need to implement body logging".blue)
+		console.log("== ".cyan + "BODY: ".blue + (res.chunkedBody || "None").blue)
 
 		console.log("====================================================".cyan);
-		console.log("== End Request: ".cyan + currentPath.path.cyan);
+		console.log("== End ".cyan + req.method.cyan + " ".cyan + currentPath.path.cyan);
 		console.log("====================================================".cyan);
 
 	}
