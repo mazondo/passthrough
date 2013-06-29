@@ -62,6 +62,9 @@ server.proxy.on("end", function(req, res) {
 		_.each(res._headers, function(value, key) {
 			console.log("== ".cyan + key.blue + " : ".blue + value.blue);
 		});
+		console.log("== ".cyan + "==============\n".blue + "== ".cyan + "Body\n".blue + "== ".cyan + "==============".blue);
+		//FIXME : Need to implement body logging
+		console.log("== ".cyan + "FIXME : Need to implement body logging".blue)
 
 		console.log("====================================================".cyan);
 		console.log("== End Request: ".cyan + currentPath.path.cyan);
