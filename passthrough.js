@@ -52,13 +52,13 @@ server.proxy.on("end", function(req, res) {
 
 	if (!currentPath.pathname.match(/ico|png|jpg$/i)) {
 		console.log("\n====================================================".cyan);
-		console.log("== Request: ".cyan + currentPath.path.cyan);
+		console.log("== Request: ".cyan + currentPath.path.cyan + " -> ".cyan + intendedUrl.href.replace(/\/$/, "").cyan + currentPath.path.cyan);
 		console.log("====================================================".cyan);
 		_.each(req.headers, function(value, key) {
-			console.log("== ".cyan + key.green + " : ".green + value.green);
+			console.log("== ".cyan + key.toString().green + " : ".green + value.toString().green);
 		});
 		console.log("== ".cyan + "==============\n".blue + "== ".cyan + "Response\n".blue + "== ".cyan + "==============".blue);
-		console.log("== ".cyan + "Status: ".blue + res.statusCode);
+		console.log("== ".cyan + "Status: ".blue + res.statusCode.toString().blue);
 		_.each(res._headers, function(value, key) {
 			console.log("== ".cyan + key.blue + " : ".blue + value.blue);
 		});

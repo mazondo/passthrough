@@ -12,7 +12,7 @@ All requests and responses are output to the console for debugging. For example:
 
 ```
 ====================================================
-== Request: /users
+== Request: /friends -> http://localhost:8080/friends
 ====================================================
 == host : localhost:1337
 == connection : keep-alive
@@ -23,15 +23,15 @@ All requests and responses are output to the console for debugging. For example:
 == referer : http://localhost:1337/index.html
 == accept-encoding : gzip,deflate,sdch
 == accept-language : en-US,en;q=0.8
-== cookie : cookie data here (removed to keep this shorter)
+== cookie : cookie data (removed to keep it short)
 == x-forwarded-for : 127.0.0.1
-== x-forwarded-port : undefined
+== x-forwarded-port : 58099
 == x-forwarded-proto : http
 == ==============
 == Response
 == ==============
 == Status: 401
-== date : Sat, 29 Jun 2013 02:53:55 GMT
+== date : Sat, 29 Jun 2013 03:07:59 GMT
 == www-authenticate : Bearer realm="user-resources"
 == content-type : text/plain
 == transfer-encoding : chunked
@@ -41,6 +41,6 @@ All requests and responses are output to the console for debugging. For example:
 == ==============
 == FIXME : Need to implement body logging
 ====================================================
-== End Request: /users
+== End Request: /friends
 ====================================================
 ```
