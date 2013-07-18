@@ -1,29 +1,22 @@
 //required libraries
-var http = require('http');
-var httpProxy = require('http-proxy');
-var url = require('url');
-var fs = require('fs');
-var path = require('path');
-var colors = require("colors");
-var _ = require("underscore");
+var http = require('http'),
+    httpProxy = require('http-proxy'),
+    url = require('url'),
+    fs = require('fs'),
+    path = require('path'),
+    colors = require("colors"),
+    _ = require("underscore"),
+    mime = require("mime");
 
 //config
-var proxyPort = process.argv[2];
-var intendedUrl = url.parse(process.argv[3]);
-var publicDir = process.argv[4] || process.cwd();
-
-var mimeTypes = {
-  "html": "text/html",
-  "jpeg": "image/jpeg",
-  "jpg": "image/jpeg",
-  "png": "image/png",
-  "js": "text/javascript",
-  "css": "text/css"};
+var proxyPort = process.argv[2],
+    intendedUrl = url.parse(process.argv[3]),
+    publicDir = process.argv[4] || process.cwd();
 
 server = httpProxy.createServer(function(req, res, proxy) {
 
-  var currentPath = url.parse(req.url);
-  var fileName = publicDir + currentPath.pathname;
+  var currentPath = url.parse(req.url),
+      fileName = publicDir + currentPath.pathname;
 
   fs.exists(fileName, function(exists) {
     if (!exists) {
@@ -44,7 +37,7 @@ server = httpProxy.createServer(function(req, res, proxy) {
 
     } else {
       //file exists, just serve it
-      var mimeType = mimeTypes[path.extname(fileName).split(".")[1]];
+      var mimeType = mime.lookup(fileName);
       console.log("Static File: ".grey + currentPath.pathname.grey + " - ".grey + mimeType.grey);
       res.writeHead(200, {'Content-Type': mimeType});
       var fileStream = fs.createReadStream(fileName);
@@ -65,7 +58,7 @@ server.proxy.on("proxyResponse", function(req, res, response) {
   response.on("end", function() {
     var currentPath = url.parse(req.url);
 
-    if (!currentPath.pathname.match(/ico|png|jpg$/i)) {
+    if (!currentPath.pathname.match(/ico$/i)) {
       console.log("\n====================================================".cyan);
       console.log("== ".cyan + req.method.cyan + " ".cyan + currentPath.path.cyan + " -> ".cyan + intendedUrl.href.replace(/\/$/, "").cyan + currentPath.path.cyan);
       console.log("====================================================".cyan);

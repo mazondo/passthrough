@@ -7,9 +7,10 @@
     "test": "test"
   },
   "dependencies" : {
-    "colors" : ">0",
+    "colors" : "",
     "underscore" : ">=1.4.4",
-    "http-proxy" : "0.10.x"
+    "http-proxy" : "0.10.x",
+    "mime" : ""
   },
   "repository": "http://github.com/mazondo/passthrough.git",
   "author": "Ryan Quinn"
